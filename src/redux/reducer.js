@@ -25,7 +25,11 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FIND_RECIPE:
-      return { ...state, recipe: action.payload };
+      return {
+        ...state,
+        recipes: action.payload,
+        filteredRecipes: action.payload,
+      };
 
     case SHOW_RECIPE:
       return { ...state, recipe: action.payload };
