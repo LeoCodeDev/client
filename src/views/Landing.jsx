@@ -3,9 +3,17 @@ import { useNavigate } from "react-router-dom";
 import video from "../assets/background-food.mp4";
 import logo from "../assets/1-bg.png";
 import styles from "./Landing.module.css";
+import { getRecipes } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const clickHandler = ()=>{
+    dispatch(getRecipes())
+    navigate("/home");
+  }
 
   return (
     <div className={styles.landingContainer}>
@@ -16,9 +24,7 @@ const Landing = () => {
         <img className={styles.logo} src={logo} alt="logo henry's kitchen" />
         <button
           className={styles.button}
-          onClick={() => {
-            navigate("/home");
-          }}
+          onClick={clickHandler}
         >
           Start
         </button>

@@ -1,6 +1,7 @@
 import {
   FILTER,
   FIND_RECIPE,
+  GET_DIETS,
   GET_RECIPES,
   ORDER,
   POST_RECIPE,
@@ -8,6 +9,7 @@ import {
 } from "./actions";
 
 const initialState = {
+  diets : [],
   filter: "all",
   filteredRecipes: [],
   order: "asc",
@@ -17,6 +19,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_DIETS:
+      return {
+        ...state,
+        diets: action.payload,
+      };
+    
     case GET_RECIPES:
       return {
         ...state,

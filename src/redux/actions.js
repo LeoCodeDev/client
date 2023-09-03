@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const GET_DIETS = "GET_DIETS";
 const GET_RECIPES = "GET_RECIPES";
 const FIND_RECIPE = "FIND_RECIPE";
 const SHOW_RECIPE = "SHOW_RECIPE";
@@ -14,6 +15,21 @@ const getRecipes = () => {
       const { data } = await axios(endpoint);
       dispatch({
         type: GET_RECIPES,
+        payload: data,
+      });
+    } catch (error) {
+      throw new Error({ error: error.message });
+    }
+  };
+};
+
+const getDiets = () => {
+  const endpoint = "http://localhost:3001/diets";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios(endpoint);
+      dispatch({
+        type: GET_DIETS,
         payload: data,
       });
     } catch (error) {
@@ -82,12 +98,14 @@ const postRecipe = (recipe) => {
 };
 
 export {
+  GET_DIETS,
   GET_RECIPES,
   FIND_RECIPE,
   SHOW_RECIPE,
   FILTER,
   ORDER,
   POST_RECIPE,
+  getDiets,
   getRecipes,
   findRecipe,
   showRecipe,
