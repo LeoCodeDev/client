@@ -4,10 +4,10 @@ import styles from "./SearchBar.module.css";
 import { SearchIcon } from "../SearchIcon/SearchIcon";
 import { isNumber, isString } from "../../utils/validator.js";
 import { findRecipe } from "../../redux/actions";
+import { Modal } from "../Modal/Modal";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const recetas = useSelector((state) => state.recipes);
   const [toSearch, setToSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
@@ -33,23 +33,26 @@ const SearchBar = () => {
   };
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit}>
-      <label htmlFor="searchBar" className={styles.searchBarLabel}>
-        Search
-      </label>
-      <input
-        type="search"
-        id="searchBar"
-        className={styles.searchBarInput}
-        placeholder="Insert recipe name"
-        onChange={handleChange}
-        autoComplete="off"
-        value={toSearch}
-      />
-      <button type="submit" className={styles.buttonSearch}>
-        <SearchIcon />
-      </button>
-    </form>
+    <>
+      <form className={styles.container} onSubmit={handleSubmit}>
+        <label htmlFor="searchBar" className={styles.searchBarLabel}>
+          Search
+        </label>
+        <input
+          type="search"
+          id="searchBar"
+          className={styles.searchBarInput}
+          placeholder="Insert recipe name"
+          onChange={handleChange}
+          autoComplete="off"
+          value={toSearch}
+        />
+        <button type="submit" className={styles.buttonSearch}>
+          <SearchIcon />
+        </button>
+      </form>
+      {showModal && <Modal message={error} setShowModal={setShowModal}/>}
+    </>
   );
 };
 
