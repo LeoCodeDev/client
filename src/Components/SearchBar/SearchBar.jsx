@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import styles from "./SearchBar.module.css";
 import { SearchIcon } from "../SearchIcon/SearchIcon";
 import { isNumber, isString } from "../../utils/validator.js";
-import { findRecipe } from "../../redux/actions";
+import { findRecipe, getDiets } from "../../redux/actions";
 import { ErrorModal } from "../ErrorModal/ErrorModal";
 
 const SearchBar = () => {
@@ -30,6 +30,7 @@ const SearchBar = () => {
     }
 
     dispatch(findRecipe(toSearch));
+    dispatch(getDiets())
   };
 
   return (
