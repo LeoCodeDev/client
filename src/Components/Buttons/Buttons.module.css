@@ -1,0 +1,36 @@
+.container {
+    width: 60%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    overflow: hidden;
+
+    .button {
+        display: flex;
+        width: 50%;
+        height: 30px;
+        color: rgb(0, 0, 0);
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        background-color: rgb(215, 160, 9);
+        border: none;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    .sortBtn {
+        border-right: 1px solid black;
+    }
+    .filterBtn {
+        border-left: 1px solid black;
+    }
+}

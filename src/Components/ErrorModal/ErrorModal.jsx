@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Modal.module.css";
+import styles from "./ErrorModal.module.css";
 
-const Modal = ({ message, setShowModal }) => {
+const ErrorModal = ({ message, setShowModal }) => {
   return (
     <div className={styles.background}>
       <div className={styles.container}>
@@ -20,4 +20,4 @@ const Modal = ({ message, setShowModal }) => {
   );
 };
 
-export { Modal };
+export { ErrorModal };

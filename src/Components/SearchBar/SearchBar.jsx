@@ -4,7 +4,7 @@ import styles from "./SearchBar.module.css";
 import { SearchIcon } from "../SearchIcon/SearchIcon";
 import { isNumber, isString } from "../../utils/validator.js";
 import { findRecipe } from "../../redux/actions";
-import { Modal } from "../Modal/Modal";
+import { ErrorModal } from "../ErrorModal/ErrorModal";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const SearchBar = () => {
           <SearchIcon />
         </button>
       </form>
-      {showModal && <Modal message={error} setShowModal={setShowModal} />}
+      {showModal && <ErrorModal message={error} setShowModal={setShowModal} />}
     </>
   );
 };

@@ -1,18 +1,19 @@
 import React from "react";
-import {SortIcon} from './SortIcon'
-import {FilterIcon} from './FilterIcon'
+import styles from "./Buttons.module.css";
+import { SortIcon } from "./SortIcon";
+import { FilterIcon } from "./FilterIcon";
 
 const Buttons = () => {
   return (
-    <div>
-        <button>
-            <SortIcon/>
-            Sort By:
-        </button>
-        <button>
-            <FilterIcon/>
-            Filter By:
-        </button>
+    <div className={styles.container}>
+      <button className={`${styles.sortBtn} ${styles.button}`}>
+        <SortIcon />
+        Sort By:
+      </button>
+      <button className={`${styles.filterBtn} ${styles.button}`}>
+        <FilterIcon />
+        Filter By:
+      </button>
     </div>
   );
 };
