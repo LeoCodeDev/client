@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./SearchBar.module.css";
 import { SearchIcon } from "../SearchIcon/SearchIcon";
 import { isNumber, isString } from "../../utils/validator.js";
@@ -51,7 +51,7 @@ const SearchBar = () => {
           <SearchIcon />
         </button>
       </form>
-      {showModal && <Modal message={error} setShowModal={setShowModal}/>}
+      {showModal && <Modal message={error} setShowModal={setShowModal} />}
     </>
   );
 };

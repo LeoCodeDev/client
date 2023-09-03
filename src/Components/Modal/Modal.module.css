@@ -8,7 +8,7 @@
   place-items: center;
 
   .container {
-    width: 60%;
+    width: 85%;
     max-width: 320px;
     height: 100px;
     background-color: rgb(215, 160, 9);

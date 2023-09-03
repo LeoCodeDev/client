@@ -1,5 +1,4 @@
 import React from "react";
-// import styles from "./SearchIcon.module.css";
 
 const SearchIcon = () => {
   return (
