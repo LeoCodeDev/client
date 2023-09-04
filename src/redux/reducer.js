@@ -6,15 +6,17 @@ import {
   ORDER,
   POST_RECIPE,
   SHOW_RECIPE,
+  FILTER_AND_SORT,
 } from "./actions";
 
 const initialState = {
-  diets : [],
+  diets: [],
   filter: "all",
   filteredRecipes: [],
   order: "asc",
   recipe: {},
   recipes: [],
+  options: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -24,7 +26,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         diets: action.payload,
       };
-    
+
     case GET_RECIPES:
       return {
         ...state,
@@ -53,6 +55,19 @@ const rootReducer = (state = initialState, action) => {
         filteredRecipes: filtered.filter((recipe) =>
           recipe.diets.some((diet) => selectedDiets.includes(diet))
         ),
+      };
+
+    case FILTER_AND_SORT:
+      if (!state.options.includes(action.payload)) {
+        return {
+          ...state,
+          options: [...state.options, action.payload],
+        };
+      }
+
+      return {
+        ...state,
+        options: state.options.filter((item) => item !== action.payload),
       };
 
     case ORDER:

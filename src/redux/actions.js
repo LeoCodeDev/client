@@ -7,6 +7,7 @@ const SHOW_RECIPE = "SHOW_RECIPE";
 const FILTER = "FILTER";
 const ORDER = "ORDER";
 const POST_RECIPE = "POST_RECIPE";
+const FILTER_AND_SORT = "FILTER_AND_SORT";
 
 const getRecipes = () => {
   const endpoint = "http://localhost:3001/recipes";
@@ -82,6 +83,13 @@ const order = (order) => {
   };
 };
 
+const filterAndSort = (option) => {
+  return {
+    type: FILTER_AND_SORT,
+    payload: option,
+  };
+};
+
 const postRecipe = (recipe) => {
   const endpoint = "http://localhost:3001/recipes";
   return async (dispatch) => {
@@ -105,6 +113,7 @@ export {
   FILTER,
   ORDER,
   POST_RECIPE,
+  FILTER_AND_SORT,
   getDiets,
   getRecipes,
   findRecipe,
@@ -112,4 +121,5 @@ export {
   filter,
   order,
   postRecipe,
+  filterAndSort,
 };
