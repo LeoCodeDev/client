@@ -7,6 +7,7 @@ import { ButtonModal } from "../ButtonModal/ButtonModal";
 import { getDiets } from "../../redux/actions";
 
 const Buttons = () => {
+  
   const dispatch = useDispatch()
   const diets = useSelector((state) => state.diets);
   const filterOptions = ["api", "dbb", ...diets];
