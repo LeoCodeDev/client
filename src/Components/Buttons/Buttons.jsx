@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import styles from "./Buttons.module.css";
 import { SortIcon } from "./SortIcon";
 import { FilterIcon } from "./FilterIcon";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ButtonModal } from "../ButtonModal/ButtonModal";
+import { getDiets } from "../../redux/actions";
 
 const Buttons = () => {
+  const dispatch = useDispatch()
   const diets = useSelector((state) => state.diets);
-  const filterOptions = ["api", "dbb", ...diets];
-  const orderOptions = ["asc", "des", "abc", "zyx"];
+  const orderOptions = ["api", "dbb", ...diets];
+  const filterOptions = ["Healthy", "Less Healthy", "A-Z", "Z-A"];
   const [showFilter, setShowFilter] = useState(false);
   const [showSort, setShowSort] = useState(false);
 
@@ -25,20 +27,37 @@ const Buttons = () => {
     title = "Sort by:";
   }
 
-  
+  const handlerClick = (event) => {
+    dispatch(getDiets())
+    const isSort = event.target.textContent.includes("Sort");
+    if (isSort) {
+      return setShowSort(!showSort);
+    }
+    return setShowFilter(!showFilter);
+  };
 
   return (
     <div className={styles.container}>
-      <button onClick={()=>{setShowSort(true)}} className={`${styles.sortBtn} ${styles.button}`}>
+      <button
+        onClick={handlerClick}
+        className={`${styles.sortBtn} ${styles.button}`}
+      >
         <SortIcon />
         Sort By:
       </button>
-      <button onClick={()=>{setShowFilter(true)}} className={`${styles.filterBtn} ${styles.button}`}>
+      <button
+        onClick={handlerClick}
+        className={`${styles.filterBtn} ${styles.button}`}
+      >
         <FilterIcon />
         Filter By:
       </button>
       {(showFilter || showSort) && (
-        <ButtonModal title={title} setShowModal={setShowModal} options={options} />
+        <ButtonModal
+          title={title}
+          setShowModal={setShowModal}
+          options={options}
+        />
       )}
     </div>
   );
