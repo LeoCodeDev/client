@@ -5,10 +5,12 @@ import { filterAndSort } from "../../redux/actions";
 
 const ButtonModal = ({ title, options, setShowModal }) => {
   const dispatch = useDispatch()
-  const activeOptions = useSelector(state => state.options)
+  const activeOptions = [...useSelector(state => state.sort), ...useSelector(state => state.filter)]
 
   const handlerCheckbox = (option)=>{
-    dispatch(filterAndSort(option))
+    const type = title.includes("Sort") ? "sort" : "filter"
+
+    dispatch(filterAndSort(option,type))
   }
 
   return (

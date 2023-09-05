@@ -11,7 +11,8 @@ const Buttons = () => {
   const dispatch = useDispatch()
   const diets = useSelector((state) => state.diets);
   const filterOptions = ["api", "dbb", ...diets];
-  const orderOptions = ["Healthy", "Less Healthy", "A-Z", "Z-A"];
+  // const orderOptions = ["Healthy", "Less Healthy", "A-Z", "Z-A"];
+  const orderOptions = ["asc", "des", "abc", "zyx"];
   const [showFilter, setShowFilter] = useState(false);
   const [showSort, setShowSort] = useState(false);
 

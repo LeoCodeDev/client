@@ -5,7 +5,7 @@ const GET_RECIPES = "GET_RECIPES";
 const FIND_RECIPE = "FIND_RECIPE";
 const SHOW_RECIPE = "SHOW_RECIPE";
 const FILTER = "FILTER";
-const ORDER = "ORDER";
+const SORT = "SORT";
 const POST_RECIPE = "POST_RECIPE";
 const FILTER_AND_SORT = "FILTER_AND_SORT";
 
@@ -76,17 +76,17 @@ const filter = (filter) => {
   };
 };
 
-const order = (order) => {
+const sort = (sort) => {
   return {
-    type: FILTER,
-    payload: order,
+    type: SORT,
+    payload: sort,
   };
 };
 
-const filterAndSort = (option) => {
+const filterAndSort = (option,type) => {
   return {
     type: FILTER_AND_SORT,
-    payload: option,
+    payload: [option,type]
   };
 };
 
@@ -111,7 +111,7 @@ export {
   FIND_RECIPE,
   SHOW_RECIPE,
   FILTER,
-  ORDER,
+  SORT,
   POST_RECIPE,
   FILTER_AND_SORT,
   getDiets,
@@ -119,7 +119,7 @@ export {
   findRecipe,
   showRecipe,
   filter,
-  order,
+  sort,
   postRecipe,
   filterAndSort,
 };

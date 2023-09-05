@@ -3,7 +3,7 @@ import {
   FIND_RECIPE,
   GET_DIETS,
   GET_RECIPES,
-  ORDER,
+  SORT,
   POST_RECIPE,
   SHOW_RECIPE,
   FILTER_AND_SORT,
@@ -11,12 +11,11 @@ import {
 
 const initialState = {
   diets: [],
-  filter: "all",
+  filter: ["all"],
   filteredRecipes: [],
-  order: "asc",
+  sort: ["asc"],
   recipe: {},
   recipes: [],
-  options: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -45,47 +44,71 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, recipe: action.payload };
 
     case FILTER:
-      let filtered = [...state.filteredRecipes];
-      const selectedDiets = [...action.payload];
-      if (selectedDiets.includes("all"))
+      let filtered = [...state.recipes];
+      if (action.payload === 'all')
         return { ...state, filteredRecipes: filtered };
 
       return {
         ...state,
-        filteredRecipes: filtered.filter((recipe) =>
-          recipe.diets.some((diet) => selectedDiets.includes(diet))
-        ),
+        filteredRecipes: filtered.filter(recipe => recipe.diets.includes(action.payload))
       };
 
     case FILTER_AND_SORT:
-      if (!state.options.includes(action.payload)) {
+      const [option, type] = action.payload;
+      console.log(option, type);
+      if (type === 'filter'){
+        if(!state.filter.includes(option) && option !== 'all'){
+          return {
+            ...state,
+            filter: [...state.filter, option],
+          };
+        }else if(option === 'all'){
+          return {
+            ...state,
+            filter: ['all'],
+          };
+        }
         return {
           ...state,
-          options: [...state.options, action.payload],
+          filter: state.filter.filter((item) => item !== option),
+        }
+      }else if(type === 'sort'){
+        if (!state.sort.includes(option) && option !== 'all') {
+          return {
+            ...state,
+            sort: [...state.sort, option],
+          };
+        }else if(option === 'all'){
+          return {
+            ...state,
+            sort: []
+          }
+        }
+  
+        return {
+          ...state,
+          sort: state.sort.filter((item) => item !== option),
         };
+
       }
+      break;
 
-      return {
-        ...state,
-        options: state.options.filter((item) => item !== action.payload),
-      };
-
-    case ORDER:
-      let ordered = [...state.filteredRecipes];
-      const order = {
+    case SORT:
+      let sorted = [...state.filteredRecipes];
+      const sort = {
         abc: (a, b) => a.name.localeCompare(b.name),
-        asc: (a, b) => a.healthScore - b.healthScore,
-        des: (a, b) => b.healthScore - a.healthScore,
+        asc: (a, b) => b.healthScore - a.healthScore,
+        des: (a, b) => a.healthScore - b.healthScore,
         zyx: (a, b) => b.name.localeCompare(a.name),
       };
 
-      const orderFunc = order[action.payload];
+      const sortFunc = sort[action.payload];
 
-      if (action.payload !== "all") ordered.sort(orderFunc);
+      if (action.payload !== "all") sorted.sort(sortFunc);
 
       return {
         ...state,
-        filteredRecipes: [...ordered],
+        filteredRecipes: [...sorted],
       };
 
     case POST_RECIPE:
