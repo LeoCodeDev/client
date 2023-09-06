@@ -45,50 +45,51 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER:
       let filtered = [...state.recipes];
-      if (action.payload === 'all')
+      if (action.payload === "all")
         return { ...state, filteredRecipes: filtered };
 
       return {
         ...state,
-        filteredRecipes: filtered.filter(recipe => recipe.diets.includes(action.payload))
+        filteredRecipes: filtered.filter((recipe) =>
+          recipe.diets.includes(action.payload)
+        ),
       };
 
     case FILTER_AND_SORT:
       const [option, type] = action.payload;
-      if (type === 'filter'){
-        if(!state.filter.includes(option) && option !== 'all'){
+      if (type === "filter") {
+        if (!state.filter.includes(option) && option !== "all") {
           return {
             ...state,
             filter: [...state.filter, option],
           };
-        }else if(option === 'all'){
+        } else if (option === "all") {
           return {
             ...state,
-            filter: ['all'],
+            filter: ["all"],
           };
         }
         return {
           ...state,
           filter: state.filter.filter((item) => item !== option),
-        }
-      }else if(type === 'sort'){
-        if (!state.sort.includes(option) && option !== 'all') {
+        };
+      } else if (type === "sort") {
+        if (!state.sort.includes(option) && option !== "all") {
           return {
             ...state,
             sort: [...state.sort, option],
           };
-        }else if(option === 'all'){
+        } else if (option === "all") {
           return {
             ...state,
-            sort: []
-          }
+            sort: [],
+          };
         }
-  
+
         return {
           ...state,
           sort: state.sort.filter((item) => item !== option),
         };
-
       }
       break;
 
