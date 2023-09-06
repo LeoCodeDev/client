@@ -1,6 +1,41 @@
 .container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+
+  .pagination {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 140px;
+    height: 18px;
+    overflow: hidden;
+    border-radius: 12px;
+    text-align: center;
+    margin: 5px;
+
+    & > button {
+      border: none;
+      color: black;
+      font-size: 1.3rem;
+      background-color: rgb(215, 160, 9);
+      font-weight: 500;
+
+      &:nth-child(2) {
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+      }
+    }
+  }
+
+  .pages {
+    width: 65px;
+    margin: 0px 0px 5px;
+
+    & > span {
+      font-size: 1rem;
+    }
+  }
 }
