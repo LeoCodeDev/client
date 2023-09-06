@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'chancery';
+  src: url("./fonts/chancery_medium_italic.ttf");
+}
+
 .App {
   min-height: 100%;
   min-width: 100%;

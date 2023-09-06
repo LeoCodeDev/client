@@ -55,7 +55,6 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_AND_SORT:
       const [option, type] = action.payload;
-      console.log(option, type);
       if (type === 'filter'){
         if(!state.filter.includes(option) && option !== 'all'){
           return {

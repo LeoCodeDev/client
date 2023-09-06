@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../Card/Card";
 import { sort, filter } from "../../redux/actions";
+import styles from "./Cards.module.css";
 
 const Cards = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Cards = () => {
   }, [orderOptions, filterOptions, dispatch]);
 
   return (
-    <section>
+    <section className={styles.container}>
       {recipes.map((recipe) => {
         return <Card key={recipe.name} recipe={recipe} />;
       })}
