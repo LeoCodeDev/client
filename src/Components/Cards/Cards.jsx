@@ -51,7 +51,7 @@ const Cards = () => {
         </span>
       </div>
       {currentRecipes.map((recipe) => {
-        return <Card key={recipe.name} recipe={recipe} />;
+        return <Card key={recipe.id} recipe={recipe} />;
       })}
       <div className={styles.pagination}>
         <button onClick={prevPage}>Prev</button>

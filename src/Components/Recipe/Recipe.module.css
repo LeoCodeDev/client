@@ -1,0 +1,133 @@
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .detailsHeader {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    .detailsImg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .detailsTitle {
+      display: grid;
+      place-content: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      font-family: chancery;
+      font-size: 2rem;
+      font-weight: 400;
+      color: rgb(215, 160, 9);
+      text-shadow: 3px 3px 3px black;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .detailsHint {
+      display: flex;
+      position: absolute;
+      width: 100%;
+      max-width: 400px;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 5px;
+
+      .healthyWrapper,
+      .timerWrapper {
+        display: flex;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        .healthyIcon,
+        .timerIcon {
+          fill: rgb(215, 160, 9);
+          width: 25px;
+          height: 25px;
+        }
+        .healthScore,
+        .time {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .detailsInfo {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 15px;
+    align-items: center;
+
+    .detailsDescription {
+      font-size: 1.4rem;
+      text-align: left;
+      max-width: 75ch;
+
+      &::after,
+      &::before {
+        font-family: chancery;
+        content: "Description";
+        display: block;
+        font-size: 2.6rem;
+        color: rgb(215, 160, 9);
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      &::after {
+        margin-top: 10px;
+        content: "Steps";
+      }
+
+      & > b,
+      a {
+        font-size: 1.4rem;
+        color: rgb(215, 160, 9);
+        text-decoration: none;
+        pointer-events: none;
+        cursor: not-allowed;
+        font-weight: 600;
+      }
+    }
+
+    .detailsSteps {
+      list-style: none;
+      counter-reset: li;
+      text-align: left;
+      margin: 0 10px;
+
+      & > li::before {
+        content: counter(li);
+        color: rgb(215, 160, 9);
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+      }
+
+      & > li {
+        counter-increment: li;
+        max-width: 75ch;
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

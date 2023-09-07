@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+
+import { Recipe } from "../Components/Recipe/Recipe";
 
 const Details = () => {
+  
   return (
-    <div>Details</div>
-  )
-}
+    <>
+      <Recipe/>
+    </>
+  );
+};
 
-export {Details}
+export { Details };

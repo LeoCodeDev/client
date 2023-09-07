@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   border-bottom: 2px solid rgb(215, 160, 9);
-  max-height:170px;
+  width: 100%;
+  max-width: 320px;
+  height:170px;
   overflow: hidden;
 
   .image {
@@ -14,6 +16,7 @@
     & > img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
 
