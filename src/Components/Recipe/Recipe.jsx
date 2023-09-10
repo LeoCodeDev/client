@@ -18,7 +18,7 @@ const Recipe = () => {
           <img src={recipe.image} alt={recipe.name} />
         </figure>
         <h2 className={styles.detailsTitle}>{recipe.name}</h2>
-        <p className={styles.detailsHint}>
+        <div className={styles.detailsHint}>
           <p className={styles.healthyWrapper}>
             <HealthyIcon className={styles.healthyIcon}/>
             <span className={styles.healthScore}>{recipe.healthScore}</span>
@@ -27,7 +27,7 @@ const Recipe = () => {
             <span className={styles.time}>{recipe.time} min</span>
             <TimerIcon className={styles.timerIcon}/>
           </p>
-        </p>
+        </div>
       </header>
       <article className={styles.detailsInfo}>
         <p

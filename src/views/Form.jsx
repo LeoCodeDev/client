@@ -1,8 +1,9 @@
 import React from 'react'
+import { CreateRecipe } from '../Components/CreateRecipe/CreateRecipe'
 
 const Form = () => {
   return (
-    <div>Form</div>
+    <CreateRecipe/>
   )
 }
 

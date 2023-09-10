@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import styles from "./Buttons.module.css";
 import { SortIcon } from "./SortIcon";
 import { FilterIcon } from "./FilterIcon";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ButtonModal } from "../ButtonModal/ButtonModal";
-import { getDiets } from "../../redux/actions";
 
 const Buttons = () => {
-  
-  const dispatch = useDispatch()
   const diets = useSelector((state) => state.diets);
   const filterOptions = ["api", "dbb", ...diets];
   // const orderOptions = ["Healthy", "Less Healthy", "A-Z", "Z-A"];
@@ -30,7 +27,6 @@ const Buttons = () => {
   }
 
   const handlerClick = (event) => {
-    dispatch(getDiets())
     const isSort = event.target.textContent.includes("Sort");
     if (isSort) {
       return setShowSort(!showSort);

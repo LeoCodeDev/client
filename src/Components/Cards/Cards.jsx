@@ -3,15 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../Card/Card";
 import { sort, filter } from "../../redux/actions";
 import styles from "./Cards.module.css";
-import { recipes } from "../../utils/data.js";
+// import { recipes } from "../../utils/data.js";
 
 const Cards = () => {
   const dispatch = useDispatch();
-  // const recipes = useSelector((state) => state.filteredRecipes);
+  const recipes = useSelector((state) => state.filteredRecipes);
   const filterOptions = useSelector((state) => state.filter);
   const orderOptions = useSelector((state) => state.sort);
 
-  // * Paginado
   const recipesPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(recipes.length / recipesPerPage);
@@ -34,8 +33,12 @@ const Cards = () => {
   };
 
   useEffect(() => {
-    filterOptions.forEach((option) => dispatch(filter(option)));
-    orderOptions.forEach((option) => dispatch(sort(option)));
+    try {
+      filterOptions.forEach((option) => dispatch(filter(option)));
+      orderOptions.forEach((option) => dispatch(sort(option)));
+    } catch (error) {
+      console.log(error);
+    }
   }, [orderOptions, filterOptions, dispatch]);
 
   return (

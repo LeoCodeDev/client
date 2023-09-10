@@ -22,14 +22,18 @@ const SearchBar = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      if (!toSearch && !isValid(toSearch)) {
+        setError("Please insert a valid info, must be a name");
+        setShowModal(true);
+        return;
+      }
 
-    if (!toSearch && !isValid(toSearch)) {
-      setError("Please insert a valid info, must be a name");
+      dispatch(findRecipe(toSearch));
+    } catch (error) {
+      setError("Info not available, please try again later.");
       setShowModal(true);
-      return;
     }
-
-    dispatch(findRecipe(toSearch));
   };
 
   return (
