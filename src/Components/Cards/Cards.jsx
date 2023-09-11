@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../Card/Card";
 import { sort, filter } from "../../redux/actions";
 import styles from "./Cards.module.css";
+import { Options } from "../Options/Options";
 // import { recipes } from "../../utils/data.js";
 
 const Cards = () => {
@@ -42,31 +43,42 @@ const Cards = () => {
   }, [orderOptions, filterOptions, dispatch]);
 
   return (
-    <section className={styles.container}>
-      <div className={styles.pagination}>
-        <button onClick={prevPage}>Prev</button>
-        <button onClick={() => goToPage(1)}>Reset</button>
-        <button onClick={nextPage}>Next</button>
-      </div>
-      <div className={styles.pages}>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-      </div>
-      {currentRecipes.map((recipe) => {
-        return <Card key={recipe.id} recipe={recipe} />;
-      })}
-      <div className={styles.pagination}>
-        <button onClick={prevPage}>Prev</button>
-        <button onClick={() => goToPage(1)}>Reset</button>
-        <button onClick={nextPage}>Next</button>
-      </div>
-      <div className={styles.pages}>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-      </div>
-    </section>
+    <>
+      <main className={styles.mainContainer}>
+        <div className={styles.paginationContainer}>
+          <div className={styles.pagination}>
+            <button onClick={prevPage}>Prev</button>
+            <button onClick={() => goToPage(1)}>Reset</button>
+            <button onClick={nextPage}>Next</button>
+          </div>
+          <div className={styles.pages}>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+          </div>
+        </div>
+        <section className={styles.container}>
+          {currentRecipes.map((recipe) => {
+            return <Card key={recipe.id} recipe={recipe} />;
+          })}
+        </section>
+        <div className={`${styles.paginationContainer} ${styles.paginationContainer2}`}>
+          <div className={styles.pagination}>
+            <button onClick={prevPage}>Prev</button>
+            <button onClick={() => goToPage(1)}>Reset</button>
+            <button onClick={nextPage}>Next</button>
+          </div>
+          <div className={styles.pages}>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+          </div>
+        </div>
+      <aside className={styles.optionsPanel}>
+        <Options />
+      </aside>
+      </main>
+    </>
   );
 };
 

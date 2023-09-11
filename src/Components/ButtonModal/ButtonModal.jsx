@@ -4,14 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort } from "../../redux/actions";
 
 const ButtonModal = ({ title, options, setShowModal }) => {
-  const dispatch = useDispatch()
-  const activeOptions = [...useSelector(state => state.sort), ...useSelector(state => state.filter)]
+  const dispatch = useDispatch();
+  const activeOptions = [
+    ...useSelector((state) => state.sort),
+    ...useSelector((state) => state.filter),
+  ];
 
-  const handlerCheckbox = (option)=>{
-    const type = title.includes("Sort") ? "sort" : "filter"
+  const handlerCheckbox = (option) => {
+    const type = title.includes("Sort") ? "sort" : "filter";
 
-    dispatch(filterAndSort(option,type))
-  }
+    dispatch(filterAndSort(option, type));
+  };
 
   return (
     <div className={styles.background}>
@@ -25,7 +28,7 @@ const ButtonModal = ({ title, options, setShowModal }) => {
                   type="checkbox"
                   checked={activeOptions.includes(option)}
                   onChange={() => {
-                    handlerCheckbox(option)
+                    handlerCheckbox(option);
                   }}
                 />
                 {option[0].toUpperCase() + option.slice(1)}

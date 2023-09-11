@@ -13,8 +13,9 @@ const Buttons = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [showSort, setShowSort] = useState(false);
 
-  let setShowModal, title;
-  let options = [];
+  let setShowModal,
+    title,
+    options = [];
 
   if (showFilter) {
     setShowModal = setShowFilter;
