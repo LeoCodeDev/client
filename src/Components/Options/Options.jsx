@@ -7,7 +7,7 @@ import { filterAndSort } from "../../redux/actions";
 const Options = () => {
   const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
-  const filterOptions = ["api", "dbb", ...diets];
+  const filterOptions = ["all","api", "dbb", ...diets];
   const orderOptions = ["asc", "des", "abc", "zyx"];
   const activeOptions = [
     ...useSelector((state) => state.sort),
@@ -22,14 +22,13 @@ const Options = () => {
           return (
             <div key={option} className={styles.sortOption}>
               <input
-                type="checkbox"
+                type="button"
                 id={option}
-                checked={activeOptions.includes(option)}
-                onChange={() => {
+                value={option}
+                onClick={() => {
                   dispatch(filterAndSort(option, "sort"));
                 }}
               />
-              <label htmlFor={option}>{option}</label>
             </div>
           );
         })}

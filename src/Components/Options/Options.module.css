@@ -1,34 +1,52 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 320px;
-    height: 100%;
-    border: 2px solid rgb(215, 160, 9);
-    border-radius: 8px;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 100%;
+  border: 2px solid rgb(215, 160, 9);
+  border-radius: 8px;
+  justify-content: space-evenly;
 
-    .sortSection,
-    .filterSection {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        padding-bottom: 10px ;
+  .sortSection,
+  .filterSection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 10px;
+    align-items: center;
 
+    & > h3 {
+      grid-column: span 2;
+      font-size: 1.5rem;
+    }
 
-        & > h3 {
-            grid-column: span 2;
-            font-size: 1.5rem;
-        }
+    .sortOption,
+    .filterOption {
+      display: flex;
+      padding-left: 25px;
+      gap: 5px;
+      margin-top: 5px;
 
-        .sortOption,
-        .filterOption {
-            display: flex;
-            padding-left: 25px;
-            gap: 5px;
-            margin-top: 5px;
+      & > label {
+        font-size: 1.2rem;
+      }
+    }
 
-            & > label {
-                font-size: 1.2rem;
-            }
+    .sortOption {
+        & > input {
+            width: 80%;
+            height: 30px;
+            background-color: transparent;
+            border: 2px solid ;
+            font-size: 1.2rem;
+            text-transform: capitalize;
         }
     }
+  }
+
+  .sortSection {
+    height: 20%;
+  }
+  .filterSection {
+    height: 60%;
+  }
 }

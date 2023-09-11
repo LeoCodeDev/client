@@ -45,8 +45,29 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER:
       let filtered = [...state.recipes];
+      console.log(filtered);
+
       if (action.payload === "all")
-        return { ...state, filteredRecipes: filtered };
+        return {
+          ...state,
+          filteredRecipes: filtered,
+        };
+      if (action.payload === "api") {
+        return {
+          ...state,
+          filteredRecipes: filtered.filter(
+            (recipe) => typeof recipe.id === "number"
+          ),
+        };
+      }
+      if (action.payload === "dbb") {
+        return {
+          ...state,
+          filteredRecipes: filtered.filter(
+            (recipe) => typeof recipe.id === 'string'
+          ),
+        };
+      }
 
       return {
         ...state,
@@ -63,7 +84,7 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             filter: [...state.filter, option],
           };
-        } else if (option === "all") {
+        } else if (!state.filter.includes(option) && option === "all") {
           return {
             ...state,
             filter: ["all"],
