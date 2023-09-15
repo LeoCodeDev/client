@@ -6,7 +6,7 @@ const RecipeModal = ({ inputs, setShowRecipeModal, handleSubmit }) => {
   return (
     <div className={styles.background}>
       <div className={styles.container}>
-        <h3 className={styles.title}>Recipe</h3>
+        <h3 className={styles.title}>Is this your Recipe?</h3>
         <div className={styles.message}>
           <img src={image} alt={name} />
           <h4 className={styles.name}>Title: {name}</h4>
@@ -36,7 +36,7 @@ const RecipeModal = ({ inputs, setShowRecipeModal, handleSubmit }) => {
               setShowRecipeModal(false);
             }}
           >
-            Close
+            Nope
           </button>
           <button
           type="submit"
@@ -45,7 +45,7 @@ const RecipeModal = ({ inputs, setShowRecipeModal, handleSubmit }) => {
                 handleSubmit(e);
             }}
           >
-            Create
+            Yeah!!!
           </button>
         </div>
       </div>

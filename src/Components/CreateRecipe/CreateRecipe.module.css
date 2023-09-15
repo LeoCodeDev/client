@@ -10,6 +10,7 @@
   .title {
     font-size: 1.8rem;
     margin-top: 10px;
+    color: rgb(215, 160, 9);
   }
 
   .infoContainer {
@@ -92,6 +93,12 @@
           width: 95%;
           justify-self: right;
         }
+
+        .errorText {
+          color: rgb(225, 81, 81);
+          grid-column: span 2;
+          font-size: 1rem;
+        }
       }
 
       .stepsBtn {
@@ -173,6 +180,12 @@
           font-size: 1.2rem;
           text-transform: capitalize;
         }
+      }
+
+      .errorText {
+        color: rgb(225, 81, 81);
+        grid-column: span 2;
+        font-size: 1rem;
       }
     }
 

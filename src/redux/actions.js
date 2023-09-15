@@ -10,7 +10,6 @@ const POST_RECIPE = "POST_RECIPE";
 const FILTER_AND_SORT = "FILTER_AND_SORT";
 
 const getRecipes = () => {
-  // const endpoint = "http://localhost:3001/recipes";
   return async (dispatch) => {
     try {
       const { data } = await axios("/recipes");
@@ -25,7 +24,6 @@ const getRecipes = () => {
 };
 
 const getDiets = () => {
-  // const endpoint = "http://localhost:3001/diets";
   return async (dispatch) => {
     try {
       const { data } = await axios("/diets");
@@ -40,7 +38,6 @@ const getDiets = () => {
 };
 
 const findRecipe = (name) => {
-  // const endpoint = `http://localhost:3001/recipes?name=${name}`;
   return async (dispatch) => {
     try {
       const { data } = await axios(`/recipes?name=${name}`);
@@ -55,7 +52,6 @@ const findRecipe = (name) => {
 };
 
 const showRecipe = (id) => {
-  // const endpoint = `http://localhost:3001/recipes/${id}`;
   return async (dispatch) => {
     try {
       const { data } = await axios(`/recipes/${id}`);
@@ -91,7 +87,6 @@ const filterAndSort = (option, type) => {
 };
 
 const postRecipe = (recipe) => {
-  // const endpoint = "http://localhost:3001/recipes";
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`/recipes`, recipe);
