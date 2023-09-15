@@ -6,6 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import reportWebVitals from "./reportWebVitals";
+import axios from "axios";
+
+// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://api-production-eab7.up.railway.app";
 
 const root = createRoot(document.getElementById("root"));
 

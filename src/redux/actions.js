@@ -10,40 +10,40 @@ const POST_RECIPE = "POST_RECIPE";
 const FILTER_AND_SORT = "FILTER_AND_SORT";
 
 const getRecipes = () => {
-  const endpoint = "http://localhost:3001/recipes";
+  // const endpoint = "http://localhost:3001/recipes";
   return async (dispatch) => {
     try {
-      const { data } = await axios(endpoint);
+      const { data } = await axios("/recipes");
       dispatch({
         type: GET_RECIPES,
         payload: data,
       });
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   };
 };
 
 const getDiets = () => {
-  const endpoint = "http://localhost:3001/diets";
+  // const endpoint = "http://localhost:3001/diets";
   return async (dispatch) => {
     try {
-      const { data } = await axios(endpoint);
+      const { data } = await axios("/diets");
       dispatch({
         type: GET_DIETS,
         payload: data,
       });
     } catch (error) {
-     throw new Error({ error: error.message });
+      throw new Error({ error: error.message });
     }
   };
 };
 
 const findRecipe = (name) => {
-  const endpoint = `http://localhost:3001/recipes?name=${name}`;
+  // const endpoint = `http://localhost:3001/recipes?name=${name}`;
   return async (dispatch) => {
     try {
-      const { data } = await axios(endpoint);
+      const { data } = await axios(`/recipes?name=${name}`);
       dispatch({
         type: FIND_RECIPE,
         payload: data,
@@ -55,10 +55,10 @@ const findRecipe = (name) => {
 };
 
 const showRecipe = (id) => {
-  const endpoint = `http://localhost:3001/recipes/${id}`;
+  // const endpoint = `http://localhost:3001/recipes/${id}`;
   return async (dispatch) => {
     try {
-      const { data } = await axios(endpoint);
+      const { data } = await axios(`/recipes/${id}`);
       dispatch({
         type: SHOW_RECIPE,
         payload: data,
@@ -83,24 +83,24 @@ const sort = (sort) => {
   };
 };
 
-const filterAndSort = (option,type) => {
+const filterAndSort = (option, type) => {
   return {
     type: FILTER_AND_SORT,
-    payload: [option,type]
+    payload: [option, type],
   };
 };
 
 const postRecipe = (recipe) => {
-  const endpoint = "http://localhost:3001/recipes";
+  // const endpoint = "http://localhost:3001/recipes";
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, recipe);
+      const { data } = await axios.post(`/recipes`, recipe);
       dispatch({
         type: POST_RECIPE,
         payload: data,
       });
 
-      return data.id
+      return data.id;
     } catch (error) {
       throw new Error(error.message);
     }
