@@ -29,7 +29,7 @@ const SearchBar = () => {
         return;
       }
 
-      dispatch(findRecipe(toSearch));
+      await dispatch(findRecipe(toSearch));
     } catch (error) {
       setError("Info not available, please try again later.");
       setShowModal(true);

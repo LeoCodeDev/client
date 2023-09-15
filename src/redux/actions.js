@@ -19,7 +19,7 @@ const getRecipes = () => {
         payload: data,
       });
     } catch (error) {
-      throw Error(error)
+      throw new Error(error)
     }
   };
 };
@@ -34,7 +34,7 @@ const getDiets = () => {
         payload: data,
       });
     } catch (error) {
-     return Error({ error: error.message });
+     throw new Error({ error: error.message });
     }
   };
 };
@@ -49,7 +49,7 @@ const findRecipe = (name) => {
         payload: data,
       });
     } catch (error) {
-      Error({ error: error.message });
+      throw new Error({ error: error.message });
     }
   };
 };
@@ -64,7 +64,7 @@ const showRecipe = (id) => {
         payload: data,
       });
     } catch (error) {
-      Error({ error: error.message });
+      throw new Error({ error: error.message });
     }
   };
 };
@@ -99,8 +99,10 @@ const postRecipe = (recipe) => {
         type: POST_RECIPE,
         payload: data,
       });
+
+      return data.id
     } catch (error) {
-      Error(error.message);
+      throw new Error(error.message);
     }
   };
 };

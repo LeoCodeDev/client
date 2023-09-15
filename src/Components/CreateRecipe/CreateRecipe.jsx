@@ -2,21 +2,39 @@ import React, { useState } from "react";
 import styles from "./CreateRecipe.module.css";
 import { Navbar } from "../Navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { postRecipe } from "../../redux/actions";
+import { postRecipe, showRecipe } from "../../redux/actions";
+import { formValidator } from "../../utils/formValidation.js";
+import { ErrorModal } from "../ErrorModal/ErrorModal";
+import { RecipeModal } from "../RecipeModal/RecipeModal";
+import { useNavigate } from "react-router-dom";
 
 const CreateRecipe = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const diets = [...useSelector((state) => state.diets)];
   const [newDiet, setNewDiet] = useState(false);
-  const [newDietName, setNewDietName] = useState("");
+  const [newDietName, setNewDietName] = useState(null);
   const [step, setStep] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
+
+  const [errors, setErrors] = useState({
+    nameError: "",
+    imageError: "",
+    summaryError: "",
+    healthScoreError: "",
+    timeError: "",
+    stepsError: "",
+    dietsError: "",
+  });
 
   const [inputs, setInputs] = useState({
     name: "",
     image: "",
     summary: "",
-    healthScore: 1,
-    time: 1,
+    healthScore: "",
+    time: "",
     steps: [],
     diets: [],
   });
@@ -27,10 +45,43 @@ const CreateRecipe = () => {
       ...inputs,
       [id]: value,
     });
-  };
 
-  const handleStepChange = (e) => {
-    setStep(e.target.value);
+    if (id === "name") {
+      setErrors({
+        ...errors,
+        nameError: formValidator.validateName(value)
+          ? ""
+          : "Name is required and must be less than 50 characters",
+      });
+    } else if (id === "image") {
+      setErrors({
+        ...errors,
+        imageError: formValidator.validateImage(value)
+          ? ""
+          : "Image is required and must be a valid URL to an image (png, jpg, jpeg)",
+      });
+    } else if (id === "summary") {
+      setErrors({
+        ...errors,
+        summaryError: formValidator.validateSummary(value)
+          ? ""
+          : "Summary is required and must be less than 256 characters",
+      });
+    } else if (id === "healthScore") {
+      setErrors({
+        ...errors,
+        healthScoreError: formValidator.validateHealthScore(value)
+          ? ""
+          : "Health Score is required and must be a number between 1 and 100",
+      });
+    } else if (id === "time") {
+      setErrors({
+        ...errors,
+        timeError: formValidator.validateTime(value)
+          ? ""
+          : "Time is required and must be a number between 5 and 600",
+      });
+    }
   };
 
   const addStep = () => {
@@ -45,13 +96,27 @@ const CreateRecipe = () => {
     });
   };
 
+  const handleStepChange = (e) => {
+    setStep(e.target.value);
+
+    inputs.steps.length >= 1
+      ? setErrors({
+          ...errors,
+          stepsError: "",
+        })
+      : setErrors({
+          ...errors,
+          stepsError: "You must add at least 1 step",
+        });
+  };
+
   const resetForm = () => {
     setInputs({
       name: "",
       image: "",
       summary: "",
-      healthScore: 0,
-      time: 0,
+      healthScore: "",
+      time: "",
       steps: [],
       diets: [],
     });
@@ -71,6 +136,16 @@ const CreateRecipe = () => {
         diets: inputs.diets.filter((diet) => diet !== value),
       });
     }
+
+    inputs.diets.length >= 1
+      ? setErrors({
+          ...errors,
+          dietsError: "",
+        })
+      : setErrors({
+          ...errors,
+          dietsError: "You must select at least 1 diet",
+        });
   };
 
   const handleNewDiets = (e) => {
@@ -78,18 +153,48 @@ const CreateRecipe = () => {
     setNewDietName(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newDiets = newDietName.split(",").map((diet) => diet.trim());
+      const newDiets = newDietName?.split(",").map((diet) => diet.trim());
       const updatedInputs = {
         ...inputs,
-        diets: [...inputs.diets, ...newDiets],
+        diets: newDietName ? [...inputs.diets, ...newDiets] : [...inputs.diets],
       };
 
-      dispatch(postRecipe(updatedInputs));
+      const recipeId = await dispatch(postRecipe(updatedInputs));
+      await dispatch(showRecipe(recipeId));
+      navigate(`/detail/${recipeId}`);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(
+        `Something went wrong, please try again. Error: ${error.message}`
+      );
+      setShowModal(true);
+    }
+  };
+
+  const preSendInfo = (e) => {
+    e.preventDefault();
+    let showRecipe = true;
+    let missingInfo;
+
+    for (const key in inputs) {
+      if (
+        !inputs[key] ||
+        (Array.isArray(inputs[key]) && inputs[key].length < 1)
+      ) {
+        showRecipe = false;
+        missingInfo = key;
+        console.log(key);
+        break;
+      }
+    }
+
+    if (!showRecipe) {
+      setErrorMessage(`Please fill out the ${missingInfo} field`);
+      setShowModal(true);
+    } else {
+      setShowRecipeModal(true);
     }
   };
 
@@ -109,74 +214,83 @@ const CreateRecipe = () => {
             <li>Diets must be selected from the list</li>
           </ul>
         </div>
-        <form className={styles.formContainer} onSubmit={handleSubmit}>
+        <form className={styles.formContainer} onSubmit={preSendInfo}>
           <div className={styles.inputTextContainer}>
             <div className={styles.inputContainer}>
               <h3 className={styles.inputTitle}>Recipe Data</h3>
               <label htmlFor="name">Title or Name</label>
               <input
-                type="text"
                 id="name"
                 onChange={handleInputChange}
                 autoComplete="off"
                 value={inputs.name}
               />
+              {errors.nameError && (
+                <p className={styles.errorText}>{errors.nameError}</p>
+              )}
             </div>
 
             <div className={styles.inputContainer}>
               <label htmlFor="image">Image</label>
               <input
-                type="url"
                 id="image"
                 onChange={handleInputChange}
                 autoComplete="off"
                 value={inputs.image}
               />
+              {errors.imageError && (
+                <p className={styles.errorText}>{errors.imageError}</p>
+              )}
             </div>
 
             <div className={styles.inputContainer}>
               <label htmlFor="summary">Summary</label>
               <input
-                type="text"
                 id="summary"
                 onChange={handleInputChange}
                 autoComplete="off"
                 value={inputs.summary}
               />
+              {errors.summaryError && (
+                <p className={styles.errorText}>{errors.summaryError}</p>
+              )}
             </div>
 
             <div className={styles.inputContainer}>
               <label htmlFor="healthScore">Health Score (1-100)</label>
               <input
-                type="number"
                 id="healthScore"
                 onChange={handleInputChange}
                 autoComplete="off"
                 value={inputs.healthScore}
-                min={1}
-                max={100}
               />
+              {errors.healthScoreError && (
+                <p className={styles.errorText}>{errors.healthScoreError}</p>
+              )}
             </div>
             <div className={styles.inputContainer}>
-              <label htmlFor="healthScore">Minutes</label>
+              <label htmlFor="time">Minutes</label>
               <input
-                type="number"
                 id="time"
                 onChange={handleInputChange}
                 autoComplete="off"
                 value={inputs.time}
-                min={1}
               />
+              {errors.timeError && (
+                <p className={styles.errorText}>{errors.timeError}</p>
+              )}
             </div>
             <div className={styles.inputContainer}>
               <label htmlFor="steps">Steps</label>
               <input
-                type="text"
                 id="steps"
                 value={step}
                 onChange={handleStepChange}
                 autoComplete="off"
               />
+              {errors.stepsError && (
+                <p className={styles.errorText}>{errors.stepsError}</p>
+              )}
             </div>
             <button className={styles.stepsBtn} type="button" onClick={addStep}>
               Add Step
@@ -214,6 +328,9 @@ const CreateRecipe = () => {
               />
               <label htmlFor="other">Other</label>
             </div>
+            {errors.dietsError && (
+              <p className={styles.errorText}>{errors.dietsError}</p>
+            )}
           </div>
           <div className={styles.twoColumnSpan}>
             {newDiet && (
@@ -227,7 +344,6 @@ const CreateRecipe = () => {
                 </label>
                 <input
                   autoComplete="off"
-                  type="text"
                   onChange={handleNewDiets}
                   id="newDiets"
                 />
@@ -250,6 +366,16 @@ const CreateRecipe = () => {
           </button>
         </form>
       </section>
+      {showModal && (
+        <ErrorModal message={errorMessage} setShowModal={setShowModal} />
+      )}
+      {showRecipeModal && (
+        <RecipeModal
+          inputs={inputs}
+          setShowRecipeModal={setShowRecipeModal}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </>
   );
 };

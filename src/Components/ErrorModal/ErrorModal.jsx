@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ErrorModal.module.css";
 
-const ErrorModal = ({ message, setShowModal }) => {
+const ErrorModal = ({ message, setShowModal}) => {
   return (
     <div className={styles.background}>
       <div className={styles.container}>

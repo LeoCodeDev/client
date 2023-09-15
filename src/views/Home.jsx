@@ -4,7 +4,7 @@ import { SearchBar } from "../Components/SearchBar/SearchBar";
 import { Buttons } from "../Components/Buttons/Buttons";
 import { Cards } from "../Components/Cards/Cards";
 import { useDispatch } from "react-redux";
-import { getDiets } from "../redux/actions";
+import { getDiets, getRecipes } from "../redux/actions";
 import { ErrorModal } from "../Components/ErrorModal/ErrorModal";
 
 const Home = () => {
@@ -13,6 +13,7 @@ const Home = () => {
 
   try {
     useEffect(() => {
+      dispatch(getRecipes())
       dispatch(getDiets());
     }, [dispatch]);
   } catch (error) {

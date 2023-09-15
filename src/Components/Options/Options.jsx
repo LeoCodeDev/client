@@ -7,7 +7,7 @@ import { filterAndSort } from "../../redux/actions";
 const Options = () => {
   const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
-  const filterOptions = ["all","api", "dbb", ...diets];
+  const filterOptions = ["all", "api", "dbb", ...diets];
   const orderOptions = ["asc", "des", "abc", "zyx"];
   const activeOptions = [
     ...useSelector((state) => state.sort),
@@ -25,8 +25,8 @@ const Options = () => {
                 type="button"
                 id={option}
                 value={option}
-                onClick={() => {
-                  dispatch(filterAndSort(option, "sort"));
+                onClick={async () => {
+                  await dispatch(filterAndSort(option, "sort"));
                 }}
               />
             </div>

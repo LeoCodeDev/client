@@ -45,7 +45,6 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER:
       let filtered = [...state.recipes];
-      console.log(filtered);
 
       if (action.payload === "all")
         return {

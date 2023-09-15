@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ButtonModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort } from "../../redux/actions";
+import { ErrorModal } from "../ErrorModal/ErrorModal";
 
 const ButtonModal = ({ title, options, setShowModal }) => {
   const dispatch = useDispatch();
@@ -10,10 +11,19 @@ const ButtonModal = ({ title, options, setShowModal }) => {
     ...useSelector((state) => state.filter),
   ];
 
-  const handlerCheckbox = (option) => {
-    const type = title.includes("Sort") ? "sort" : "filter";
+  const [showErrorModal, setErrorShowModal] = useState(false);
+  const [message, setMessage] = useState("");
 
-    dispatch(filterAndSort(option, type));
+  const handlerCheckbox = async (option) => {
+    try {
+      const type = title.includes("Sort") ? "sort" : "filter";
+
+      await dispatch(filterAndSort(option, type));
+    } catch (error) {
+      setErrorShowModal(true);
+      setMessage(`Something went wrong, please try again.
+      Error: ${error.message}`);
+    }
   };
 
   return (
@@ -45,6 +55,12 @@ const ButtonModal = ({ title, options, setShowModal }) => {
           Close
         </button>
       </div>
+      {showErrorModal && (
+        <ErrorModal
+          message={message}
+          setShowModal={{ setShowModal: setErrorShowModal }}
+        />
+      )}
     </div>
   );
 };

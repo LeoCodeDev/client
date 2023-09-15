@@ -4,6 +4,7 @@ import { Card } from "../Card/Card";
 import { sort, filter } from "../../redux/actions";
 import styles from "./Cards.module.css";
 import { Options } from "../Options/Options";
+import { ErrorModal } from "../ErrorModal/ErrorModal";
 // import { recipes } from "../../utils/data.js";
 
 const Cards = () => {
@@ -12,8 +13,11 @@ const Cards = () => {
   const filterOptions = useSelector((state) => state.filter);
   const orderOptions = useSelector((state) => state.sort);
 
-  const recipesPerPage = 9;
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 9;
   const totalPages = Math.ceil(recipes.length / recipesPerPage);
 
   const currentRecipes = recipes.slice(
@@ -35,10 +39,11 @@ const Cards = () => {
 
   useEffect(() => {
     try {
-      filterOptions.forEach((option) => dispatch(filter(option)));
-      orderOptions.forEach((option) => dispatch(sort(option)));
+      filterOptions.forEach(async (option) => await dispatch(filter(option)));
+      orderOptions.forEach(async (option) => await dispatch(sort(option)));
     } catch (error) {
-      console.log(error);
+      setErrorMessage(`Something went wrong. Error: ${error.message}`);
+      setShowModal(true);
     }
   }, [orderOptions, filterOptions, dispatch]);
 
@@ -59,10 +64,19 @@ const Cards = () => {
         </div>
         <section className={styles.container}>
           {currentRecipes.map((recipe) => {
-            return <Card key={recipe.id} recipe={recipe} />;
+            return (
+              <Card
+                key={recipe.id}
+                recipe={recipe}
+                setShowModal={setShowModal}
+                setErrorMessage={setErrorMessage}
+              />
+            );
           })}
         </section>
-        <div className={`${styles.paginationContainer} ${styles.paginationContainer2}`}>
+        <div
+          className={`${styles.paginationContainer} ${styles.paginationContainer2}`}
+        >
           <div className={styles.pagination}>
             <button onClick={prevPage}>Prev</button>
             <button onClick={() => goToPage(1)}>Reset</button>
@@ -74,10 +88,13 @@ const Cards = () => {
             </span>
           </div>
         </div>
-      <aside className={styles.optionsPanel}>
-        <Options />
-      </aside>
+        <aside className={styles.optionsPanel}>
+          <Options />
+        </aside>
       </main>
+      {showModal && (
+        <ErrorModal message={errorMessage} setShowModal={setShowModal} />
+      )}
     </>
   );
 };

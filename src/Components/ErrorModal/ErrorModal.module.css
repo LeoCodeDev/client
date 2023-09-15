@@ -10,7 +10,8 @@
   .container {
     width: 85%;
     max-width: 320px;
-    height: 100px;
+    height: auto;
+    padding: 10px;
     background-color: rgb(215, 160, 9);
     border-radius: 16px;
     display: flex;
