@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className={styles.container}>
         <img
           onClick={() => {
-            navigate("/home");
+            navigate("/");
           }}
           className={styles.logo}
           src={logo}

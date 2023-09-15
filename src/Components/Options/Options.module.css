@@ -39,6 +39,12 @@
             border: 2px solid ;
             font-size: 1.2rem;
             text-transform: capitalize;
+
+            &:hover{
+              border: 2px solid rgb(215, 160, 9);
+              color: rgb(215, 160, 9);
+              cursor: pointer;
+            }
         }
     }
   }

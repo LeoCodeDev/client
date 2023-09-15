@@ -30,6 +30,12 @@
           border-left: 2px solid black;
           border-right: 2px solid black;
         }
+
+        &:hover {
+          cursor: pointer;
+          color: rgb(215, 160, 9);
+          background-color: black;
+        }
       }
     }
 
@@ -79,13 +85,12 @@
   .paginationContainer {
     grid-area: pages;
   }
-  
+
   .paginationContainer2 {
     grid-area: pages2;
   }
 
-
-  .optionsPanel{
+  .optionsPanel {
     grid-area: options;
     height: 100%;
   }

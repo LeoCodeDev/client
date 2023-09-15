@@ -25,6 +25,9 @@
 
     &:hover {
       cursor: pointer;
+      background-color: black;
+      color: rgb(215, 160, 9);
+      fill: rgb(215, 160, 9);
     }
   }
 

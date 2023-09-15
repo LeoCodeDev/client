@@ -41,7 +41,7 @@ const Buttons = () => {
         onClick={handlerClick}
         className={`${styles.sortBtn} ${styles.button}`}
       >
-        <SortIcon />
+        <SortIcon className={styles.svgIcon}/>
         Sort By:
       </button>
       <button
