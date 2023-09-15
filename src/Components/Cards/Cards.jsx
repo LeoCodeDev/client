@@ -5,7 +5,6 @@ import { sort, filter } from "../../redux/actions";
 import styles from "./Cards.module.css";
 import { Options } from "../Options/Options";
 import { ErrorModal } from "../ErrorModal/ErrorModal";
-// import { recipes } from "../../utils/data.js";
 
 const Cards = () => {
   const dispatch = useDispatch();
@@ -36,6 +35,10 @@ const Cards = () => {
   const goToPage = (page) => {
     if (page > 0 && page <= totalPages) setCurrentPage(page);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [recipes]);
 
   useEffect(() => {
     try {
