@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import video from "../assets/background-food.mp4";
 import logo from "../assets/1-bg.png";
 import styles from "./Landing.module.css";
-import { getRecipes } from "../redux/actions";
-import { useDispatch } from "react-redux";
+// import { getRecipes } from "../redux/actions";
+// import { useDispatch } from "react-redux";
 import { ErrorModal } from "../Components/ErrorModal/ErrorModal";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
   const clickHandler = async () => {
     try {
-      await dispatch(getRecipes());
+      // await dispatch(getRecipes());
       navigate("/home");
     } catch (error) {
       setShowModal(true)

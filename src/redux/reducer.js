@@ -41,7 +41,17 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SHOW_RECIPE:
-      return { ...state, recipe: action.payload };
+      if (Object.keys(state.recipe).length === 0) {
+        return {
+          ...state,
+          recipe: action.payload,
+        };
+      } else {
+        return {
+          ...state,
+          recipe: {},
+        };
+      }
 
     case FILTER:
       let filtered = [...state.recipes];
@@ -63,7 +73,7 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           filteredRecipes: filtered.filter(
-            (recipe) => typeof recipe.id === 'string'
+            (recipe) => typeof recipe.id === "string"
           ),
         };
       }
